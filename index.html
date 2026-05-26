@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Gameway | Киберспортивный клуб</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, #1a1a2e, #0a0a0a);
+            z-index: -2;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 24px 0 20px;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .logo h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e94560, #533483);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo p {
+            font-size: 14px;
+            color: #888;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 0 0 4px 0;
+        }
+
+        .nav-links button:hover {
+            color: #e94560;
+        }
+
+        .nav-links button.active {
+            color: #e94560;
+            border-bottom: 2px solid #e94560;
+        }
+
+        .btn {
+            background: #2a2a3a;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #e94560, #533483);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #e94560;
+        }
+
+        .btn-outline:hover {
+            background: #e94560;
+        }
+
+        .card {
+            background: #11111fdd;
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            border: 1px solid #2a2a3a;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: #11111f;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid #2a2a3a;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #e94560;
+        }
+
+        .tariff-card {
+            background: #0f0f1a;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid #2a2a3a;
+        }
+
+        .tariff-card:hover {
+            transform: translateY(-5px);
+            border-color: #e94560;
+        }
+
+        .tariff-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e94560;
+            margin: 15px 0;
+        }
+
+        .tariff-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .tariff-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            background: #1a1a2a;
+            border: 1px solid #2a2a3a;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .tournament-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tournament-table th,
+        .tournament-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .tournament-table th {
+            color: #e94560;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #11111f;
+            max-width: 500px;
+            width: 90%;
+            padding: 32px;
+            border-radius: 28px;
+            border: 1px solid #e94560;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #e94560;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            z-index: 1100;
+            animation: fadeOut 2.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateY(0); }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; transform: translateY(10px); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px 0;
+            color: #666;
+            border-top: 1px solid #2a2a3a;
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 20px 0 20px;
+            text-align: center;
+        }
+
+        .page {
+            display: none;
+            animation: fadePage 0.3s ease;
+        }
+
+        .page.active-page {
+            display: block;
+        }
+
+        @keyframes fadePage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fake-note {
+            font-size: 12px;
+            color: #e94560;
+            text-align: center;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg-gradient"></div>
+<div class="container">
+    <div class="header">
+        <div class="logo-area">
+            <img class="logo-img" src="https://raw.githubusercontent.com/MayorDd-gmod/GAMEWAY/main/ChatGPT%20Image%2026%20%D0%BC%D0%B0%D1%8F%202026%20%D0%B3.%2C%2010_37_00.png" alt="Gameway Logo">
+            <div class="logo">
+                <h1>GAMEWAY</h1>
+                <p>киберспортивный клуб | турниры | аренда ПК</p>
+            </div>
+        </div>
+    </div>
+    <div class="nav-links">
+        <button class="nav-btn active" data-page="about">О клубе</button>
+        <button class="nav-btn" data-page="tariffs">Тарифы</button>
+        <button class="nav-btn" data-page="tournaments">Турниры</button>
+        <button class="nav-btn" data-page="booking">Бронирование</button>
+        <button class="nav-btn" data-page="contacts">Контакты</button>
+    </div>
+
+    <!-- СТРАНИЦА: О КЛУБЕ -->
+    <div id="aboutPage" class="page active-page">
+        <div class="card" style="text-align: center;">
+            <h2 style="font-size: 42px; margin-bottom: 16px;">Добро пожаловать в <span style="color:#e94560;">GAMEWAY</span></h2>
+            <p style="font-size: 18px; margin-bottom: 24px;">Мощные ПК, турниры с призовыми, уютная атмосфера и киберспортивный дух</p>
+            <button class="btn btn-primary" id="openBookingFromAbout">🎮 Забронировать место</button>
+        </div>
+        <div class="section-title">Почему <span>GAMEWAY</span>?</div>
+        <div class="grid-3">
+            <div class="info-card"><div style="font-size: 48px;">⚡</div><h3>RTX 4090 + i9</h3><p>Топовые конфигурации для киберспорта и новинок</p></div>
+            <div class="info-card"><div style="font-size: 48px;">🎧</div><h3>Профессиональная периферия</h3><p>Мыши, клавиатуры, наушники от ведущих брендов</p></div>
+            <div class="info-card"><div style="font-size: 48px;">🏆</div><h3>Еженедельные турниры</h3><p>Призовой фонд до 50 000 ₽ каждый месяц</p></div>
+            <div class="info-card"><div style="font-size: 48px;">🕹️</div><h3>VIP-комнаты</h3><p>Отдельные ложи для команд и стримеров</p></div>
+            <div class="info-card"><div style="font-size: 48px;">🍕</div><h3>Бесплатные напитки</h3><p>Чай, кофе, снеки — всегда в доступе</p></div>
+            <div class="info-card"><div style="font-size: 48px;">🎮</div><h3>Более 200 игр</h3><p>Steam, Epic Games, киберспортивные дисциплины</p></div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА: ТАРИФЫ -->
+    <div id="tariffsPage" class="page">
+        <div class="section-title">Наши <span>тарифы</span></div>
+        <div class="grid-3">
+            <div class="tariff-card">
+                <h3>🕐 Стандарт</h3>
+                <div class="tariff-price">150 ₽/час</div>
+                <ul class="tariff-features"><li>✅ RTX 3060 / i5</li><li>✅ 144Hz монитор</li><li>✅ Базовые игры</li><li>✅ Wi-Fi</li></ul>
+                <button class="btn btn-primary" onclick="switchToBookingWithTariff('Стандарт', 150)">Выбрать</button>
+            </div>
+            <div class="tariff-card">
+                <h3>🔥 Премиум</h3>
+                <div class="tariff-price">250 ₽/час</div>
+                <ul class="tariff-features"><li>✅ RTX 4070 / i7</li><li>✅ 240Hz монитор</li><li>✅ Все игры + доп. ПО</li><li>✅ Напитки в подарок</li></ul>
+                <button class="btn btn-primary" onclick="switchToBookingWithTariff('Премиум', 250)">Выбрать</button>
+            </div>
+            <div class="tariff-card">
+                <h3>👑 Турнирный</h3>
+                <div class="tariff-price">400 ₽/час</div>
+                <ul class="tariff-features"><li>✅ RTX 4090 / i9</li><li>✅ 360Hz монитор</li><li>✅ VIP-комната</li><li>✅ Доступ к турнирам</li></ul>
+                <button class="btn btn-primary" onclick="switchToBookingWithTariff('Турнирный', 400)">Выбрать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА: ТУРНИРЫ -->
+    <div id="tournamentsPage" class="page">
+        <div class="section-title">Актуальные <span>турниры</span></div>
+        <div class="card">
+            <table class="tournament-table">
+                <thead><tr><th>Турнир</th><th>Дата</th><th>Призовой фонд</th><th>Регистрация</th></tr></thead>
+                <tbody>
+                    <tr><td>🏆 CS2 Battle</td><td>15 июня 2026</td><td>50 000 ₽</td><td><button class="btn btn-primary" style="padding:6px 16px;" onclick="openTournamentModal('CS2 Battle')">Участвовать</button></td></tr>
+                    <tr><td>🎮 Valorant Cup</td><td>22 июня 2026</td><td>35 000 ₽</td><td><button class="btn btn-primary" style="padding:6px 16px;" onclick="openTournamentModal('Valorant Cup')">Участвовать</button></td></tr>
+                    <tr><td>⚔️ Dota 2 Arena</td><td>29 июня 2026</td><td>100 000 ₽</td><td><button class="btn btn-primary" style="padding:6px 16px;" onclick="openTournamentModal('Dota 2 Arena')">Участвовать</button></td></tr>
+                    <tr><td>🔫 PUBG Royale</td><td>6 июля 2026</td><td>40 000 ₽</td><td><button class="btn btn-primary" style="padding:6px 16px;" onclick="openTournamentModal('PUBG Royale')">Участвовать</button></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА: БРОНИРОВАНИЕ -->
+    <div id="bookingPage" class="page">
+        <div class="card">
+            <h3 style="font-size: 28px; margin-bottom: 20px;">🎮 Бронирование ПК</h3>
+            <div class="booking-form">
+                <input type="text" id="bookName" placeholder="Ваше имя">
+                <input type="text" id="bookDiscord" placeholder="Ваш Discord (обязательно)">
+                <input type="text" id="bookPhone" placeholder="Телефон (выдуманный)">
+                <input type="email" id="bookEmail" placeholder="Email (выдуманный)">
+                <select id="bookTariff">
+                    <option value="Стандарт">Стандарт — 150 ₽/час</option>
+                    <option value="Премиум">Премиум — 250 ₽/час</option>
+                    <option value="Турнирный">Турнирный — 400 ₽/час</option>
+                </select>
+                <input type="datetime-local" id="bookDateTime">
+                <input type="number" id="bookHours" placeholder="Количество часов" min="1" value="1">
+                <textarea id="bookComment" rows="2" placeholder="Комментарий (если нужно)"></textarea>
+                <button class="btn btn-primary" id="submitBookingBtn">📝 Отправить заявку</button>
+            </div>
+            <div class="fake-note">🔒 Почта и телефон выдуманные — настоящие данные не требуются</div>
+            <div id="bookingResult" style="margin-top: 20px; text-align: center;"></div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА: КОНТАКТЫ -->
+    <div id="contactsPage" class="page">
+        <div class="card">
+            <h3 style="font-size: 28px; margin-bottom: 20px;">📞 Контакты</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between;">
+                <div>
+                    <p>📍 Адрес: г. Доброград, Брокстон 15</p>
+                    <p>📱 Телефон: +1 (349) 147-2411</p>
+                    <p>✉️ Email: info@gameway.com</p>
+                    <p>🕒 Режим работы: Круглосуточно, 24/7</p>
+                </div>
+                <div>
+                    <p>💬 Discord: <a href="https://discord.gg/69yyEqj9gN" target="_blank" style="color:#e94560;">discord.gg/69yyEqj9gN</a></p>
+                    <p>📷 Telegram: t.me/gameway_club</p>
+                    <p>🎮 VK: vk.com/gameway_esports</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Gameway — киберспортивный клуб. Все права защищены. Сеть: GGERS Marketing Network</p>
+        <p style="margin-top: 8px;">Игровые ПК, турниры, аренда, киберспорт</p>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО ТУРНИРОВ -->
+<div id="tournamentModal" class="modal">
+    <div class="modal-content">
+        <h3 style="margin-bottom: 16px;">🎮 Регистрация на турнир</h3>
+        <input type="text" id="tournamentName" readonly style="background:#1a1a2a; width:100%; padding:12px; border-radius:12px; margin-bottom:12px;">
+        <input type="text" id="playerName" placeholder="Ваше имя" style="width:100%; background:#1a1a2a; padding:12px; border-radius:12px; margin-bottom:12px;">
+        <input type="text" id="playerDiscord" placeholder="Discord" style="width:100%; background:#1a1a2a; padding:12px; border-radius:12px; margin-bottom:12px;">
+        <button class="btn btn-primary" id="confirmTournamentBtn" style="width:100%;">✅ Подтвердить участие</button>
+        <button class="btn btn-outline" id="closeModalBtn" style="width:100%; margin-top:12px;">❌ Закрыть</button>
+    </div>
+</div>
+
+<script>
+    // Discord Webhook (ваш)
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1508729562496892938/gEAeeoykUilTiH7-XB-xrNtKhabIW0KXlTmY1o_SKq5QqDitx7JuCItnqTMj5q-jvBs6";
+
+    function showToast(message) {
+        let toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    async function sendToDiscord(title, data) {
+        let fields = [];
+        for (let [key, value] of Object.entries(data)) {
+            fields.push({ name: key, value: value, inline: false });
+        }
+        const embed = {
+            title: title,
+            color: 0xe94560,
+            fields: fields,
+            timestamp: new Date().toISOString(),
+            footer: { text: "Gameway Club" }
+        };
+        try {
+            await fetch(DISCORD_WEBHOOK_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ embeds: [embed] })
+            });
+        } catch (e) { console.warn(e); }
+    }
+
+    async function sendTournamentRegistration(tournament, player, discord) {
+        await sendToDiscord("🎮 Новая заявка на турнир!", {
+            "Турнир": tournament,
+            "Игрок": player,
+            "Discord": discord,
+            "Статус": "Ожидает подтверждения"
+        });
+    }
+
+    async function sendBookingNotification(data) {
+        await sendToDiscord("🖥️ Новая бронь ПК!", {
+            "Имя": data.name,
+            "Discord": data.discord,
+            "Телефон": data.phone,
+            "Email": data.email,
+            "Тариф": data.tariff,
+            "Дата и время": data.datetime,
+            "Часов": data.hours + " ч",
+            "Итого": data.total + " ₽",
+            "Комментарий": data.comment || "—"
+        });
+    }
+
+    function switchPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
+        document.getElementById(pageId + 'Page').classList.add('active-page');
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.nav-btn[data-page="${pageId}"]`).classList.add('active');
+    }
+
+    window.switchToBookingWithTariff = function(tariff, price) {
+        const select = document.getElementById("bookTariff");
+        if (select) {
+            if (tariff === "Стандарт") select.value = "Стандарт";
+            else if (tariff === "Премиум") select.value = "Премиум";
+            else if (tariff === "Турнирный") select.value = "Турнирный";
+        }
+        switchPage('booking');
+        showToast(`Выбран тариф ${tariff} (${price} ₽/час)`);
+    };
+
+    document.getElementById("openBookingFromAbout")?.addEventListener("click", () => {
+        switchPage('booking');
+    });
+
+    document.getElementById("submitBookingBtn")?.addEventListener("click", async () => {
+        let name = document.getElementById("bookName").value.trim();
+        let discord = document.getElementById("bookDiscord").value.trim();
+        let phone = document.getElementById("bookPhone").value.trim();
+        let email = document.getElementById("bookEmail").value.trim();
+        let tariff = document.getElementById("bookTariff").value;
+        let dateTime = document.getElementById("bookDateTime").value;
+        let hours = parseInt(document.getElementById("bookHours").value);
+        let comment = document.getElementById("bookComment").value;
+
+        if (!name || !discord || !phone || !email || !dateTime || !hours) {
+            showToast("❌ Заполните все обязательные поля (имя, Discord, телефон, email, дата, часы)!");
+            return;
+        }
+        if (hours < 1) {
+            showToast("❌ Количество часов не может быть меньше 1");
+            return;
+        }
+
+        let pricePerHour = tariff === "Стандарт" ? 150 : (tariff === "Премиум" ? 250 : 400);
+        let total = pricePerHour * hours;
+        let dateObj = new Date(dateTime);
+        let formattedDate = dateObj.toLocaleString();
+
+        let message = `✅ Заявка отправлена!\n\n👤 Имя: ${name}\n💬 Discord: ${discord}\n📞 Телефон: ${phone}\n📧 Email: ${email}\n🎮 Тариф: ${tariff}\n🕒 Дата/время: ${formattedDate}\n⏱️ Часов: ${hours}\n💰 Итого: ${total} ₽\n📝 Комментарий: ${comment || "—"}\n\nСкоро с вами свяжутся в Discord.`;
+        showToast("✅ Заявка на бронирование отправлена!");
+        document.getElementById("bookingResult").innerHTML = `<div style="background:#1a1a2a; padding:16px; border-radius:16px;">${message.replace(/\n/g, '<br>')}</div>`;
+
+        await sendBookingNotification({
+            name: name,
+            discord: discord,
+            phone: phone,
+            email: email,
+            tariff: tariff,
+            datetime: formattedDate,
+            hours: hours,
+            total: total,
+            comment: comment
+        });
+        
+        document.getElementById("bookName").value = "";
+        document.getElementById("bookDiscord").value = "";
+        document.getElementById("bookPhone").value = "";
+        document.getElementById("bookEmail").value = "";
+        document.getElementById("bookDateTime").value = "";
+        document.getElementById("bookHours").value = "1";
+        document.getElementById("bookComment").value = "";
+    });
+
+    let currentTournament = "";
+    const modal = document.getElementById("tournamentModal");
+    window.openTournamentModal = function(tournamentName) {
+        currentTournament = tournamentName;
+        document.getElementById("tournamentName").value = tournamentName;
+        modal.style.display = "flex";
+    };
+    document.getElementById("confirmTournamentBtn")?.addEventListener("click", async () => {
+        let player = document.getElementById("playerName").value.trim();
+        let discord = document.getElementById("playerDiscord").value.trim();
+        if (!player || !discord) {
+            showToast("❌ Введите имя и Discord для участия!");
+            return;
+        }
+        showToast(`✅ Участие в турнире ${currentTournament} подтверждено! С вами свяжутся.`);
+        await sendTournamentRegistration(currentTournament, player, discord);
+        modal.style.display = "none";
+        document.getElementById("playerName").value = "";
+        document.getElementById("playerDiscord").value = "";
+    });
+    document.getElementById("closeModalBtn")?.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+    window.onclick = function(event) {
+        if (event.target === modal) modal.style.display = "none";
+    };
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            let page = btn.getAttribute('data-page');
+            switchPage(page);
+        });
+    });
+
+    switchPage('about');
+</script>
+</body>
+</html>

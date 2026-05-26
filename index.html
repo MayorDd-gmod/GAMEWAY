@@ -49,7 +49,7 @@
             flex-wrap: wrap;
         }
 
-        /* Стили для логотипа из файла image.png */
+        /* ЛОГОТИП ИЗ ВАШЕГО ФАЙЛА (встроен прямо в код) */
         .logo-img {
             width: 60px;
             height: 60px;
@@ -312,8 +312,8 @@
 <div class="container">
     <div class="header">
         <div class="logo-area">
-            <!-- ЛОГОТИП ИЗ ФАЙЛА image.png (ВСТРОЕННЫЙ КАК BASE64 ДЛЯ НАДЁЖНОСТИ) -->
-            <img class="logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAB1klEQVR4nO2aPY7CMAyFQyEhwQ1YGTgDEkegZGbkCExLxwEoERIbEhICTsDKRDMjRfyT2Eka27EdO59U6UeSxvl8/Nqxk0RERERE9GEBcAZ2ANOB65WQwApgANxpMp2Bd5fGk88YmALntCfPzGeHYZ8H/MW0Z99DBA0Q0iKARQCLABYBLKoB/hURGUGgCDAETnReC/y8PSLCIIDBTn4X+z3d4AUS5mJbBGARgEUAFgGsCFgR/H4rICIEfAqWzpmtCa5NcG2CaxNcm+DaBNcmuDaBHG1S/W9T/RPE15zv++a6zdaZzFkE+L62J5iDBNcmuDbBtQnkuEiNkQuVh/kBLiz4zHYE8jfOrk1wbYJrE1ybQPW/WRO0nyPIGfH1zu7G7uX3J7g2wbUJrk0ga4JqE8i22HfPWhNkD0jnyXJtAjkTpLRvzHn3nDm6NsG1Ca5NIG+CPH3WyHNSyT2P69oE1yYQtS4Px/QeYEfoNUE+gFoL1BswQPN9pr0wvQOgam+/a6/bNDuAA/AFToRYBLAIYBHAogpARES6ESAhApDmHXMKPGlGaxNcm+DaBNcmuDaBrAlaE1x73S/WBNcmmDVA3gH57k2C6z1AsQZobyEiIiKiH/UDKbMl8F9PcUYAAAAASUVORK5CYII=" alt="Gameway Logo">
+            <!-- ЛОГОТИП — прямая ссылка на ваш файл с GitHub -->
+            <img class="logo-img" src="https://raw.githubusercontent.com/MayorDd-gmod/GAMEWAY/main/ChatGPT%20Image%2026%20%D0%BC%D0%B0%D1%8F%202026%20%D0%B3.%2C%2010_37_00.png" alt="Gameway Logo" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23e94560%27/%3E%3Ctext x=%2750%27 y=%2767%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%2740%27 font-weight=%27bold%27%3EG%3C/text%3E%3C/svg%3E';">
             <div class="logo-text-block">
                 <h1>GAMEWAY</h1>
                 <p>киберспортивный клуб | турниры | аренда ПК</p>
@@ -394,8 +394,8 @@
             <div class="booking-form">
                 <input type="text" id="bookName" placeholder="Ваше имя">
                 <input type="text" id="bookDiscord" placeholder="Ваш Discord (обязательно)">
-                <input type="text" id="bookPhone" placeholder="Телефон (выдуманный)">
-                <input type="email" id="bookEmail" placeholder="Email (выдуманный)">
+                <input type="text" id="bookPhone" placeholder="Телефон">
+                <input type="email" id="bookEmail" placeholder="Email">
                 <select id="bookTariff">
                     <option value="Стандарт">Стандарт — 150 ₽/час</option>
                     <option value="Премиум">Премиум — 250 ₽/час</option>
@@ -423,7 +423,7 @@
                     <p>🕒 Режим работы: Круглосуточно, 24/7</p>
                 </div>
                 <div>
-                    <p>💬 Discord: <a href="https://discord.gg/69yyEqj9gN" target="_blank" style="color:#e94560;">discord.gg/69yyEqj9gN</a></p>
+                    <p>💬 Discord: discord.gg/gameway</p>
                     <p>📷 Telegram: t.me/gameway_club</p>
                     <p>🎮 VK: vk.com/gameway_esports</p>
                 </div>
@@ -432,7 +432,7 @@
     </div>
 
     <div class="footer">
-        <p>© 2026 Gameway — киберспортивный клуб. Все права защищены. Сеть: GGERS Marketing Network</p>
+        <p>© 2026 Gameway — киберспортивный клуб. Все права защищены.</p>
         <p style="margin-top: 8px;">Игровые ПК, турниры, аренда, киберспорт</p>
     </div>
 </div>
@@ -450,7 +450,6 @@
 </div>
 
 <script>
-    // Discord Webhook (ваш)
     const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1508729562496892938/gEAeeoykUilTiH7-XB-xrNtKhabIW0KXlTmY1o_SKq5QqDitx7JuCItnqTMj5q-jvBs6";
 
     function showToast(message) {
@@ -538,7 +537,7 @@
         let comment = document.getElementById("bookComment").value;
 
         if (!name || !discord || !phone || !email || !dateTime || !hours) {
-            showToast("❌ Заполните все обязательные поля (имя, Discord, телефон, email, дата, часы)!");
+            showToast("❌ Заполните все обязательные поля!");
             return;
         }
         if (hours < 1) {
@@ -551,7 +550,7 @@
         let dateObj = new Date(dateTime);
         let formattedDate = dateObj.toLocaleString();
 
-        let message = `✅ Заявка отправлена!\n\n👤 Имя: ${name}\n💬 Discord: ${discord}\n📞 Телефон: ${phone}\n📧 Email: ${email}\n🎮 Тариф: ${tariff}\n🕒 Дата/время: ${formattedDate}\n⏱️ Часов: ${hours}\n💰 Итого: ${total} ₽\n📝 Комментарий: ${comment || "—"}\n\nСкоро с вами свяжутся в Discord.`;
+        let message = `✅ Заявка отправлена!\n\n👤 Имя: ${name}\n💬 Discord: ${discord}\n📞 Телефон: ${phone}\n📧 Email: ${email}\n🎮 Тариф: ${tariff}\n🕒 Дата/время: ${formattedDate}\n⏱️ Часов: ${hours}\n💰 Итого: ${total} ₽\n📝 Комментарий: ${comment || "—"}`;
         showToast("✅ Заявка на бронирование отправлена!");
         document.getElementById("bookingResult").innerHTML = `<div style="background:#1a1a2a; padding:16px; border-radius:16px;">${message.replace(/\n/g, '<br>')}</div>`;
 
@@ -590,7 +589,7 @@
             showToast("❌ Введите имя и Discord для участия!");
             return;
         }
-        showToast(`✅ Участие в турнире ${currentTournament} подтверждено! С вами свяжутся.`);
+        showToast(`✅ Участие в турнире ${currentTournament} подтверждено!`);
         await sendTournamentRegistration(currentTournament, player, discord);
         modal.style.display = "none";
         document.getElementById("playerName").value = "";
